@@ -95,9 +95,7 @@ class _NoteScreenState extends State<notes_view> {
           padding: const EdgeInsets.all(30),
           child: Column(
             children: <Widget>[
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Image.asset(
                 'assets/images/note-icon.png',
                 width: 50,
@@ -111,14 +109,11 @@ class _NoteScreenState extends State<notes_view> {
                 '${notes.length} notes',
                 style: TextStyle(fontSize: 20),
               ),
-              const SizedBox(
-                height: 40,
-              ),
+              const SizedBox(height: 40),
               TextField(
                 controller: _controller,
                 decoration: InputDecoration(
                   hintText: 'Enter Your Note',
-                  //labelText: 'Enter Your Note',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -140,20 +135,32 @@ class _NoteScreenState extends State<notes_view> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
                           children: [
-                            Text(
-                              formatDate(notes[index].date),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    formatDate(notes[index].date),
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    notes[index].content,
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(height: 8),
-                            Text(
-                              notes[index].content,
-                              style: const TextStyle(fontSize: 16),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () {
+                                deleteNote(notes[index].id);
+                              },
                             ),
                           ],
                         ),
